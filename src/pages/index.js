@@ -5,6 +5,10 @@ import { StaticImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
+import Preview from "../components/firebase"
+
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 const links = [
   {
@@ -69,6 +73,14 @@ const moreLinks = [
 
 const utmParameters = `?utm_source=starter&utm_medium=start-page&utm_campaign=default-starter`
 
+const db = firebase.database();
+
+// Then you can use the database API to read or write data, like this:
+db.ref('/lyrics').once('value', snapshot => {
+  const data = snapshot.val();
+  console.log(data);
+});
+
 const IndexPage = () => (
   <Layout>
     <div className={styles.textCenter}>
@@ -82,7 +94,7 @@ const IndexPage = () => (
         style={{ marginBottom: `var(--space-3)` }}
       />
       <h1>
-        adfadfasdfasdfaf u  <b>Gatsby!</b>
+        <b>underRound</b> lyrics
       </h1>
       <p className={styles.intro}>
         <b>Example pages:</b>{" "}
@@ -115,8 +127,16 @@ const IndexPage = () => (
         {i !== moreLinks.length - 1 && <> · </>}
       </React.Fragment>
     ))}
+
+<Preview></Preview>
+
+
+    
   </Layout>
 )
+
+
+
 
 /**
  * Head export to define metadata for the page
@@ -125,4 +145,4 @@ const IndexPage = () => (
  */
 export const Head = () => <Seo title="Home" />
 
-export default IndexPage
+export default IndexPage;
